@@ -8,22 +8,22 @@
 > **Backend API server for CUET FoodExpress - A full-stack food ordering platform for CUET campus**
 
 🔗 **Live API:** [https://cuet-foodexpress-server.vercel.app](https://cuet-foodexpress-server.vercel.app)  
-🌐 **Frontend App:** [https://cuet-foodexpress-w3.firebaseapp.com](https://cuet-foodexpress-w3.web.app)  
+🌐 **Frontend App:** [https://cuet-foodexpress-w3.web.app](https://cuet-foodexpress-w3.web.app)  
 📦 **Frontend Repo:** [cuet-foodexpress-frontend](https://github.com/RifatHossaiN47/cuet-foodexpress-frontend)
 
 ---
 
 ## 🎯 Overview
 
-CUET FoodExpress Backend is a robust RESTful API server built with Node.js and Express.js for a modern food ordering system. It handles authentication, menu management, cart operations, payment processing, and admin functions with enterprise-level security.
+CUET FoodExpress Backend is a robust RESTful API server built with Node.js and Express.js for a modern food ordering system. It handles JWT token generation for Firebase-authenticated users, menu management, cart operations, payment processing, and admin functions with role-based access control.
 
-**Key Capabilities:** 🔐 JWT + Firebase Auth | 💳 Stripe Payments | 📧 Email Notifications | 👥 Role-Based Access | 📊 Analytics Dashboard | 🛒 Cart Management
+**Key Capabilities:** 🔐 JWT Token Auth | 💳 Stripe Payments | 📧 Email Notifications | 👥 Role-Based Access | 📊 Analytics Dashboard | 🛒 Cart Management
 
 ---
 
 ## ✨ Features
 
-- ✅ **Authentication:** Email/Password + JWT + Firebase Google OAuth
+- ✅ **Authentication:** JWT token-based auth + Firebase Google OAuth integration
 - ✅ **User Management:** Registration, profile, admin promotion, role-based access
 - ✅ **Menu Management:** Full CRUD with categories (Pizza, Salad, Soup, Dessert, Drinks)
 - ✅ **Shopping Cart:** User-specific storage, auto-clear on payment
@@ -31,14 +31,14 @@ CUET FoodExpress Backend is a robust RESTful API server built with Node.js and E
 - ✅ **Orders:** Creation, history, automated cart cleanup, email confirmations
 - ✅ **Analytics:** Revenue stats, category-wise sales, user metrics
 - ✅ **Reviews:** Customer feedback system
-- ✅ **Security:** bcrypt hashing, JWT tokens, CORS, input validation
+- ✅ **Security:** JWT tokens, CORS, input validation, role-based middleware
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Core:** Node.js, Express.js, MongoDB Atlas, Mongoose  
-**Auth & Security:** JWT, bcrypt, CORS, dotenv  
+**Core:** Node.js, Express.js, MongoDB Atlas (native driver)  
+**Auth & Security:** JWT, CORS, dotenv  
 **Payment & Email:** Stripe API, Mailgun
 
 ---
@@ -47,8 +47,7 @@ CUET FoodExpress Backend is a robust RESTful API server built with Node.js and E
 
 ### Authentication
 
-- `POST /login` - Email/password login
-- `POST /jwt` - Generate JWT token
+- `POST /jwt` - Generate JWT token (for Firebase authenticated users)
 - `POST /users` - Register new user
 
 ### User Management
@@ -100,13 +99,9 @@ npm install
 
 ### Create .env file
 
-cp .env.example .env
+Create a `.env` file in the root directory and add the required environment variables (see Environment Variables section below)
 
-### Run development server
-
-npm run dev
-
-### Run production server
+### Run server
 
 npm start
 
@@ -141,7 +136,7 @@ MAIL_SENDING_DOMAIN=your_mailgun_domain
 ### Collections:
 
 **users**
-{ \_id: ObjectId, name: String, email: String (unique), password: String (bcrypt), role: "user" | "admin" }
+{ \_id: ObjectId, name: String, email: String (unique), role: "user" | "admin" }
 
 **menu**
 { \_id: ObjectId, name: String, recipe: String, image: String (URL), category: String, price: Number }
@@ -156,9 +151,9 @@ MAIL_SENDING_DOMAIN=your_mailgun_domain
 
 ## 🔒 Security
 
-- ✅ bcrypt password hashing (10 salt rounds)
 - ✅ JWT token authentication (1-hour expiry)
 - ✅ Role-based access control (User/Admin)
+- ✅ verifyToken and verifyAdmin middleware
 - ✅ MongoDB ObjectId validation
 - ✅ CORS configuration
 - ✅ Environment variable protection
@@ -185,14 +180,14 @@ heroku config:set DB_USER=xxx DB_PASS=xxx
 
 ## 📈 API Usage Examples
 
-**Login:**
-const response = await fetch('https://cuet-foodexpress-server.vercel.app/login', {
+**Generate JWT Token:**
+const response = await fetch('https://cuet-foodexpress-server.vercel.app/jwt', {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ email: 'user@cuet.ac.bd', password: 'pass123' })
+body: JSON.stringify({ email: 'user@cuet.ac.bd' })
 });
 
-Returns: { success: true, token: 'jwt_token', user: {...} }
+Returns: { token: 'jwt_token_here' }
 
 **Protected Request:**
 const response = await fetch('https://cuet-foodexpress-server.vercel.app/admin-stats', {
