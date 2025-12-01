@@ -218,7 +218,7 @@ Returns: { users: 150, menuItems: 45, orders: 320, revenue: 15420.50 }
 **Md Rifat Hossen**  
 📧 Email: rifat8851@gmail.com
 🔗 GitHub: [@RifatHossaiN47](https://github.com/RifatHossaiN47)  
-💼 LinkedIn: [Your Profile](https://linkedin.com/in/rifathossain47)
+💼 LinkedIn: [Rifat Hossen Profile](https://linkedin.com/in/rifathossain47)
 
 ---
 
