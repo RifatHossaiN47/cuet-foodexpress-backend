@@ -215,6 +215,12 @@ Returns: { users: 150, menuItems: 45, orders: 320, revenue: 15420.50 }
 🔗 GitHub: [@RifatHossaiN47](https://github.com/RifatHossaiN47)  
 💼 LinkedIn: [Rifat Hossen Profile](https://linkedin.com/in/rifathossain47)
 
+
+**Denesh Barua Pantho**  
+📧 Email: pantho625@gmail.com
+🔗 GitHub: [@DBP625](https://github.com/DBP625)  
+💼 LinkedIn: [Denesh Barua Pantho](https://linkedin.com/in/denesh-barua-pantho-280772239/)
+
 ---
 
 ## 📞 Support
